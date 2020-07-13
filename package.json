@@ -1,0 +1,15 @@
+{
+  "name": "simple-dal",
+  "version": "0.1.0",
+  "description": "Simple Data Access Layer for learning",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Josh Farley",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.2.0"
+  }
+}
