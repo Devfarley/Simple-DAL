@@ -10,6 +10,7 @@
   "author": "Josh Farley",
   "license": "ISC",
   "dependencies": {
-    "dotenv": "^8.2.0"
+    "dotenv": "^8.2.0",
+    "mongodb": "^3.5.9"
   }
 }

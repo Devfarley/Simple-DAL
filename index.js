@@ -21,8 +21,12 @@ const main = () => {
     ProductsDAL.updateProduct();
     ProductsDAL.deleteProduct();
     // Run Functions using Require Format 2
-    readProducts(); 
-    createProduct(); 
+    readProducts().then((data) => {
+        console.log('Read:', data);
+    });
+    createProduct().then((data) => {
+        console.log('Create:', data)
+    }); 
     upsertProduct(); 
     updateProduct(); 
     deleteProduct(); 

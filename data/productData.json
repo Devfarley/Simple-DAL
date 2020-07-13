@@ -1,0 +1,36 @@
+[
+    {
+        "name": "Nintendo Entertainment System",
+        "price": 5.99,
+        "brand": "Nintendo",
+        "size": {
+            "weight": "10 lbs",
+            "height": "4 inches",
+            "length": "12 inches",
+            "depth": "10 inches"
+        }
+
+    },
+    {
+        "name": "PlayStation 2",
+        "price": 65.98,
+        "brand": "Sony",
+        "size": {
+            "weight": "6 lbs",
+            "height": "3 inches",
+            "length": "10 inches",
+            "depth": "7 inches"
+        }
+    },
+    {
+        "name": "Xbox 360",
+        "price": 120.76,
+        "brand": "Micosoft",
+        "size": {
+            "weight": "15 lbs",
+            "height": "2.5 inches",
+            "length": "12 inches",
+            "depth": "8 inches"
+        }
+    }
+]
