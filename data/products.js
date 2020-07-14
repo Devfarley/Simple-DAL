@@ -14,7 +14,7 @@ const options = {
 // Read all Products, using the 'find' Mongo Function
 const readProducts= () => {
     const iou = new Promise((resolve, reject) => {
-        MongoClient.connect(url, (err, client) => {
+        MongoClient.connect(url, options, (err, client) => {
             assert.equal(err, null);
 
             const db = client.db(db_name);
@@ -29,17 +29,18 @@ const readProducts= () => {
     return iou
 };
 // Create a Product, using the 'insert' Mongo Function
+// roductObj needs to be passed to insert
 const createProduct= (productObj) => {
     const iou = new Promise((resolve, reject) => {
-        MongoClient.connect(url,(err, client) =>{
+        MongoClient.connect(url, options,(err, client) =>{
             assert.equal(err, null);
 
             const db = client.db(db_name);
             const collection = db.collection(col_name);
-            collection.insertOne({name: "PlayStation 4"}, (err, doc) =>{
+            collection.insertOne(productObj, (err, doc) =>{
                 assert.equal(err, null)
-                resolve(doc);
-                client.close
+                resolve(doc.ops[0]);
+                client.close();
             });
         });
     });
@@ -47,15 +48,48 @@ const createProduct= (productObj) => {
 };
 // Update/Replace a Product, using the 'updateOne' Mongo Function
 const upsertProduct= (id, product) => {
-    console.log('Upsert a Product');
+    const iou = new Promise((resolve, reject) => {
+        MongoClient.connect(url, options,(err, client) =>{
+            assert.equal(err, null);
+
+            const db = client.db(db_name);
+            const collection = db.collection(col_name);
+
+            resolve('temp');
+            client.close();
+        });
+    });  
+    return iou  
 };
 // Update/Modify a Product, using the 'updateOne' Mongo Function
 const updateProduct= (id, product) => {
-    console.log('Update a Product');
+    const iou = new Promise((resolve, reject) => {
+        MongoClient.connect(url, options,(err, client) =>{
+            assert.equal(err, null);
+
+            const db = client.db(db_name);
+            const collection = db.collection(col_name);
+
+            resolve('temp');
+            client.close();
+        });
+    });  
+    return iou  
 };
 // Delete a Product, using the 'delete' Mongo Function
 const deleteProduct= (id) => {
-    console.log('Delete a Product');
+    const iou = new Promise((resolve, reject) => {
+        MongoClient.connect(url, options,(err, client) =>{
+            assert.equal(err, null);
+
+            const db = client.db(db_name);
+            const collection = db.collection(col_name);
+
+            resolve('temp');
+            client.close();
+        });
+    });  
+    return iou     
 };
 
 // Export CRUD Function
