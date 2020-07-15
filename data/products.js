@@ -3,6 +3,7 @@
 // Import in Mongo connection package(s)
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
+const { ObjectId } = require('mongodb');
 // Setup Database Objects
 const url = process.env.DB_URL;
 const db_name = process.env.DB_NAME;
@@ -69,9 +70,12 @@ const updateProduct= (id, product) => {
 
             const db = client.db(db_name);
             const collection = db.collection(col_name);
-
-            resolve('temp');
-            client.close();
+            collection.updateOne({_id: new ObjectId(id)}, 
+                {$set: { ...product }}, 
+                (err, result) => {
+                resolve(result);
+                client.close();
+            });
         });
     });  
     return iou  
@@ -84,9 +88,11 @@ const deleteProduct= (id) => {
 
             const db = client.db(db_name);
             const collection = db.collection(col_name);
-
-            resolve('temp');
-            client.close();
+            collection.findOneAndDelete(id, (err, result) => {
+                assert.equal(err, null)
+                resolve(result.value);
+                client.close();
+            });
         });
     });  
     return iou     

@@ -8,7 +8,8 @@ const {
     upsertProduct,
     updateProduct,
     deleteProduct
-} = require('./data/products')
+} = require('./data/products');
+const { ObjectId } = require('mongodb');
 
 const newProduct = {
     name: "Switch",
@@ -22,6 +23,19 @@ const newProduct = {
     }
 };
 
+const upsertProduct = {
+    name: "GameBoy",
+    price: 100.00,
+    brand: "Nintendo",
+    size: {
+        weight: "1 lbs",
+        height: "4 inches",
+        length: "10 inches",
+        depth: ".5 inches"
+    }
+};
+
+const deletedProduct = {_id: new ObjectId("5f0de409b13ad92480d49a26")}
 
 
 const main = () => {
@@ -42,8 +56,12 @@ const main = () => {
         console.log('Create:', data)
     }); 
     upsertProduct(); 
-    updateProduct(); 
-    deleteProduct(); 
+    updateProduct().then((data) =>{
+        console.log('Update/Modify:', data)
+    });
+    deleteProduct(deletedProduct).then((data) =>{
+        console.log('Delete:', data)
+    }); 
 };
 
 main();
