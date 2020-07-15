@@ -23,7 +23,7 @@ const newProduct = {
     }
 };
 
-const upsertProduct = {
+const upsertProd = {
     name: "GameBoy",
     price: 100.00,
     brand: "Nintendo",
@@ -35,7 +35,7 @@ const upsertProduct = {
     }
 };
 
-const deletedProduct = {_id: new ObjectId("5f0de409b13ad92480d49a26")}
+const deletedProduct = {_id: new ObjectId("5f0de434ec222629b4922fdb")}
 
 
 const main = () => {
@@ -55,8 +55,10 @@ const main = () => {
     createProduct(newProduct).then((data) => {
         console.log('Create:', data)
     }); 
-    upsertProduct(); 
-    updateProduct().then((data) =>{
+    upsertProduct("5f0de434ec222629b44a2fd9", upsertProd).then((data) => {
+        console.log("Update/Replace:", data)
+    }); 
+    updateProduct("5f0de434ec222629b4922fd9", {price : 125.95}).then((data) =>{
         console.log('Update/Modify:', data)
     });
     deleteProduct(deletedProduct).then((data) =>{

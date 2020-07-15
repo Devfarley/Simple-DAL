@@ -29,6 +29,23 @@ const readProducts= () => {
     });
     return iou
 };
+// Read one Products, using the 'find' Mongo Function
+const readProductById= (id) => {
+    const iou = new Promise((resolve, reject) => {
+        MongoClient.connect(url, options, (err, client) => {
+            assert.equal(err, null);
+
+            const db = client.db(db_name);
+            const collection = db.collection(col_name);
+            collection.find({_id: new ObjectId(id)}).toArray((err, docs) => {
+                assert.equal(err, null);
+                resolve(docs[0]);
+                client.close();
+            });
+        });
+    });
+    return iou
+};
 // Create a Product, using the 'insert' Mongo Function
 // roductObj needs to be passed to insert
 const createProduct= (productObj) => {
@@ -55,9 +72,16 @@ const upsertProduct= (id, product) => {
 
             const db = client.db(db_name);
             const collection = db.collection(col_name);
-
-            resolve('temp');
-            client.close();
+            collection.findAndModify({_id: new ObjectId(id)},
+                null, 
+                {$set: {...product}}, 
+                {upsert: true},
+                (err, result) => {
+                assert.equal(err, null);
+                readProductById(result.value._id)
+                    .then(product => resolve(product))
+                    .then(() => client.close())                
+            });
         });
     });  
     return iou  
@@ -70,11 +94,13 @@ const updateProduct= (id, product) => {
 
             const db = client.db(db_name);
             const collection = db.collection(col_name);
-            collection.updateOne({_id: new ObjectId(id)}, 
+            collection.findOneAndUpdate({_id: new ObjectId(id)}, 
                 {$set: { ...product }}, 
                 (err, result) => {
-                resolve(result);
-                client.close();
+                assert.equal(err, null);
+                readProductById(result.value._id)
+                    .then(product => resolve(product))
+                    .then(() => client.close())                
             });
         });
     });  
